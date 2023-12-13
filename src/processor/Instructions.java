@@ -176,20 +176,29 @@ public class Instructions {
 		String rs2 = instructionComponents.get("rs2");
 		String imm = instructionComponents.get("imm");
 
-		int offset = Integer.parseUnsignedInt(Utility.leftPad(imm), 2);
-
 		String rs1Value = registers.getRegisterValue(rs1);
 		String rs2Value = registers.getRegisterValue(rs2);
+		int offset = Integer.parseUnsignedInt(Utility.leftPad(imm), 2);
+		//System.out.println("BLT DEBUG: offset: " + offset);
+
+		// Convert program counter to integer before adding the offset
+		int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
+		//System.out.println("BLT DEBUG: programCounter: " + programCounter);
+		int branchTargetAddress = programCounter + offset;
+		//System.out.println("BLT DEBUG: branchTargetAddress: " + branchTargetAddress);
 
 		// Branch if rs1Value is less than rs2Value
-		boolean isLessThan = rs1Value.compareTo(rs2Value) < 0;
+		int rs1IntValue = Integer.parseUnsignedInt(rs1Value, 2);
+		int rs2IntValue = Integer.parseUnsignedInt(rs2Value, 2);
+		boolean isLessThan = rs1IntValue < rs2IntValue;
 
-		System.out.println("BLT DEBUG: Branch if " + rs1 + " less than " + rs2 + " MOVE TO " + offset);
 		if (isLessThan) {
-			int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
-			int branchTargetAddress = programCounter + offset;
+			System.out.println("BLT DEBUG: rs1Value (" + rs1IntValue + ") less than rs2Value (" +
+					rs2IntValue + ") branching to " + branchTargetAddress);
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
+			System.out.println("BLT DEBUG: rs1Value (" + rs1IntValue + ") is greater than or equal to rs2Value (" +
+					rs2IntValue + ") increment PC");
 			registers.incrementProgramCounter();
 		}
 
