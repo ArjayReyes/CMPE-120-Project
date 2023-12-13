@@ -604,7 +604,7 @@ class InstructionsTest {
         testInstructions.JALR(instructionMapPos);
 
         String resultPos = testRegisters.getRegisterValue("x10");
-        assertEquals("00000000000000000000000000001000", resultPos); // Expected value in x10
+        assertEquals("00000000000000000000000000001100", resultPos); // Expected value in x10
 
         // Test JALR with a larger positive immediate value
         HashMap<String, String> instructionMapLargePos = new HashMap<>();

@@ -105,8 +105,13 @@ public class Instructions {
 
 		// Save the return address (program counter + 4) in the destination register
 		// (rd)
+		int programCounter = Integer.parseInt(registers.getProgramCounter(), 2);
+		System.out.println("DEBUG: Before: " + programCounter);
+		int programCounterInc = programCounter + 4;
+		System.out.println("DEBUG: After: " + programCounterInc);
+		System.out.println("DEBUG: Binary: " + Integer.toUnsignedString(programCounterInc, 2));
 		registers.setRegisterValue(rd,
-				Integer.toUnsignedString(Integer.parseInt(registers.getProgramCounter(), 2) + 4, 2));
+				Utility.leftPadSigned(programCounterInc));
 
 		System.out.println("JALR DEBUG: Jump to " + jumpTargetString);
 
