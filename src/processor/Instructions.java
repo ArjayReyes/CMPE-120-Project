@@ -40,19 +40,25 @@ public class Instructions {
 	}
 
 	public String AUIPC(HashMap<String, String> instructionComponents) {
-		String rd = instructionComponents.get("rd");
-		String imm = instructionComponents.get("imm");
+		// Extract components from the HashMap
+		String rd = instructionComponents.get("rd"); // destination register
+		String imm = instructionComponents.get("imm"); // immediate value
 
-		int immediate = Integer.parseUnsignedInt(Utility.leftPad(imm), 2);
+		// Convert immediate value from binary string to integer
+		int immediate = (int) Long.parseUnsignedLong(Utility.leftPad(imm), 2);
+
+		// Perform LUI operation (shift immediate value left by 12 bits)
+		int offset = immediate << 12;
 
 		// Convert program counter to integer before adding the offset
 		int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
-		int result = programCounter + immediate;
+		int result = programCounter + offset;
+
+		// Convert result to 32-bit binary string
+		String resultBinary = Utility.leftPadSigned(result);
 
 		// Set the result to the destination register (rd)
-		registers.setRegisterValue(rd, Integer.toUnsignedString(result, 2));
-
-		// Increment the program counter
+		registers.setRegisterValue(rd, resultBinary);
 		registers.incrementProgramCounter();
 
 		return String.format("auipc %s, %d", rd, immediate);
