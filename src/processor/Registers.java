@@ -105,9 +105,9 @@ public class Registers {
             int valueAsInt = 0;
             try {
                 valueAsInt = (int) Long.parseUnsignedLong(value, 2);
-                System.out.println(" (" + valueAsInt + ")");
+                //System.out.println(" (" + valueAsInt + ")");
             } catch (NumberFormatException e) {
-                System.out.println(" (UnK)");
+                //System.out.println(" (UnK)");
             }
 
         }

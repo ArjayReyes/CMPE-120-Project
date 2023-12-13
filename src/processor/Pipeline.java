@@ -18,7 +18,7 @@ public class Pipeline {
     private FileWriter outputFile;
     private final boolean RUN = true;
     private final boolean STOP = false;
-    private String datFile;
+    public String datFile;
 
     public Pipeline(Memory memory, Registers registers, String inputFile) {
         this.memory = memory;
@@ -31,7 +31,7 @@ public class Pipeline {
         inputFile = inputFile.split("/")[(inputFile.split("/").length) - 1];
         String[] inputFileSplit = inputFile.split("\\.");
         this.datFile = inputFileSplit[0] + ".asm";
-        System.out.println("datFile: " + datFile);
+        //System.out.println("datFile: " + datFile);
         functionMap.put("lui", this.instructions::LUI); // 1
         functionMap.put("auipc", this.instructions::AUIPC); // 2
         functionMap.put("jal", this.instructions::JAL); // 3

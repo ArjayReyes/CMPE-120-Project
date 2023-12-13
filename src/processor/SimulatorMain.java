@@ -48,7 +48,7 @@ public class SimulatorMain {
         if (args.length == 0) {
             System.out.println("Please enter the input file name:");
             inputFile = scanner.nextLine();
-            inputFile = "src/processor/input_files/" + inputFile;
+            inputFile = "input_files/" + inputFile;
         } else {
             inputFile = args[0];
         }
@@ -71,7 +71,7 @@ public class SimulatorMain {
             if (provideDataFile.equals("y")) {
                 System.out.println("Please enter the data file name:");
                 dataFile = scanner.nextLine();
-                dataFile = "src/processor/input_files/" + dataFile;
+                dataFile = "input_files/" + dataFile;
             } else {
                 dataFile = ""; // Make it an empty string
             }
@@ -168,13 +168,16 @@ public class SimulatorMain {
                     break;
             }
         }
-        System.out.println("Execution complete!");
+        System.out.println("\nExecution complete!\n");
         printTime();
-        System.out.print("Final register states (0's are omitted): \n" + registers.toString());
+        System.out.print("\nFinal register states (0's are omitted): \n" + registers.toString());
         if (memory.dataLines > 0) {
-            System.out.println("Final data memory states: ");
+            System.out.println("\nFinal data memory states: ");
             dumpDMem();
+        } else {
+            System.out.println("\nNo data memory lines to display.");
         }
+        System.out.println("\nInstructions written to file: " + pipeline.datFile);
         scanner.close();
     }
 
