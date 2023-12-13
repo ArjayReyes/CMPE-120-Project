@@ -35,9 +35,9 @@ public class Loader {
 
         // Read data from dataAddress file and store it in memory at address 1000 onwards
         while (dataDis.available() > 0) {
-            System.out.println("LOADER DEBUG: dataMemAddress: " + dataMemAddress);
+            //System.out.println("LOADER DEBUG: dataMemAddress: " + dataMemAddress);
             String dataLine = dataDis.readLine();
-            System.out.println("LOADER DEBUG: dataLine: " + dataLine);
+            //System.out.println("LOADER DEBUG: dataLine: " + dataLine);
             memory.setMemoryValue(dataMemAddress, dataLine);
             dataMemAddress = Utility.StringCrement(dataMemAddress, 1); // Increment data memory address
         }
