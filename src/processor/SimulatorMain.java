@@ -48,7 +48,7 @@ public class SimulatorMain {
         if (args.length == 0) {
             System.out.println("Please enter the input file name:");
             inputFile = scanner.nextLine();
-            inputFile = "src/processor/input_files/" + inputFile;
+            inputFile = "input_files/" + inputFile;
         } else {
             inputFile = args[0];
         }
@@ -71,7 +71,7 @@ public class SimulatorMain {
             if (provideDataFile.equals("y")) {
                 System.out.println("Please enter the data file name:");
                 dataFile = scanner.nextLine();
-                dataFile = "src/processor/input_files/" + dataFile;
+                dataFile = "input_files/" + dataFile;
             } else {
                 dataFile = ""; // Make it an empty string
             }
@@ -81,7 +81,7 @@ public class SimulatorMain {
         try {
             loader.load(inputFile, dataFile);
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println("ERROR: Could not load file(s)! Place files in input_files/ directory and try again.");
             System.out.println("Exiting...");
             System.exit(1);
