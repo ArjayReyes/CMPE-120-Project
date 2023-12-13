@@ -101,7 +101,7 @@ public class Registers {
     public void setRegisterValue(String registerKey, String value) {
         if (registerMap.containsKey(registerKey) && !registerKey.equals("x0") && value.length() == 32) {
             registerMap.put(registerKey, value);
-            System.out.print("REGISTER DEBUG: Set " + registerKey + "(" + xToT(registerKey) +") to " + value);
+            //System.out.print("REGISTER DEBUG: Set " + registerKey + "(" + xToT(registerKey) +") to " + value);
             int valueAsInt = 0;
             try {
                 valueAsInt = (int) Long.parseUnsignedLong(value, 2);

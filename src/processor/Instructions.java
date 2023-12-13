@@ -29,7 +29,7 @@ public class Instructions {
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPadSigned(result);
-		System.out.println("LUI DEBUG: Shifting " + immediate + " left by " + 12 + " to get " + result);
+		//System.out.println("LUI DEBUG: Shifting " + immediate + " left by " + 12 + " to get " + result);
 
 		// Update rd register value
 		registers.setRegisterValue(rd, resultBinary);
@@ -67,8 +67,8 @@ public class Instructions {
 		// Convert program counter to integer before adding the offset
 		int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
 		int jumpTargetAddress = programCounter + immediate;
-		System.out.println("JAL DEBUG: immediate: " + immediate + " programCounter: " + programCounter
-				+ " jumpTargetAddress: " + jumpTargetAddress);
+		//System.out.println("JAL DEBUG: immediate: " + immediate + " programCounter: " + programCounter
+		//		+ " jumpTargetAddress: " + jumpTargetAddress);
 
 		// Save the return address (program counter + 4) in the destination register
 		registers.setRegisterValue(rd, Integer.toUnsignedString(programCounter + 4, 2));
@@ -102,7 +102,7 @@ public class Instructions {
 		registers.setRegisterValue(rd,
 				Integer.toUnsignedString(Integer.parseInt(registers.getProgramCounter(), 2) + 4, 2));
 
-		System.out.println("JALR DEBUG: Jump to " + jumpTargetString);
+		//System.out.println("JALR DEBUG: Jump to " + jumpTargetString);
 
 		// Set the program counter to the jump target address
 		registers.setProgramCounter(jumpTargetString);
@@ -118,25 +118,25 @@ public class Instructions {
 		String rs1Value = registers.getRegisterValue(rs1);
 		String rs2Value = registers.getRegisterValue(rs2);
 		int offset = Integer.parseUnsignedInt(imm, 2);
-		System.out.println("BEQ DEBUG: offset: " + offset);
+		//System.out.println("BEQ DEBUG: offset: " + offset);
 
 		// Convert program counter to integer before adding the offset
 		int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
-		System.out.println("BEQ DEBUG: programCounter: " + programCounter);
+		//System.out.println("BEQ DEBUG: programCounter: " + programCounter);
 		int branchTargetAddress = programCounter + offset;
-		System.out.println("BEQ DEBUG: branchTargetAddress: " + branchTargetAddress);
+		//System.out.println("BEQ DEBUG: branchTargetAddress: " + branchTargetAddress);
 		// Branch if rs1Value is equal to rs2Value
 
 		int rs1IntValue = Integer.parseUnsignedInt(rs1Value, 2);
 		int rs2IntValue = Integer.parseUnsignedInt(rs2Value, 2);
 
 		if (rs1Value.equals(rs2Value)) {
-			System.out.println("BEQ DEBUG: rs1Value (" + rs1IntValue + ") is equal to rs2Value (" + rs2IntValue
-					+ ") branching to " + branchTargetAddress);
+			//System.out.println("BEQ DEBUG: rs1Value (" + rs1IntValue + ") is equal to rs2Value (" + rs2IntValue
+			//		+ ") branching to " + branchTargetAddress);
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
-			System.out.println("BEQ DEBUG: rs1Value (" + rs1IntValue + ") is not equal to rs2Value (" + rs2IntValue
-					+ ") incrementing program counter");
+			//System.out.println("BEQ DEBUG: rs1Value (" + rs1IntValue + ") is not equal to rs2Value (" + rs2IntValue
+			//		+ ") incrementing program counter");
 			registers.incrementProgramCounter();
 		}
 
@@ -161,7 +161,7 @@ public class Instructions {
 		// Branch if rs1Value is not equal to rs2Value
 		boolean isNotEqual = !rs1Value.equals(rs2Value);
 
-		System.out.println("BNE DEBUG: Branch if " + rs1 + " not equal " + rs2 + " MOVE TO " + branchTargetAddress);
+		//System.out.println("BNE DEBUG: Branch if " + rs1 + " not equal " + rs2 + " MOVE TO " + branchTargetAddress);
 		if (isNotEqual) {
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
@@ -184,7 +184,7 @@ public class Instructions {
 		// Branch if rs1Value is less than rs2Value
 		boolean isLessThan = rs1Value.compareTo(rs2Value) < 0;
 
-		System.out.println("BLT DEBUG: Branch if " + rs1 + " less than " + rs2 + " MOVE TO " + offset);
+		//System.out.println("BLT DEBUG: Branch if " + rs1 + " less than " + rs2 + " MOVE TO " + offset);
 		if (isLessThan) {
 			int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
 			int branchTargetAddress = programCounter + offset;
@@ -204,13 +204,13 @@ public class Instructions {
 		String rs1Value = registers.getRegisterValue(rs1);
 		String rs2Value = registers.getRegisterValue(rs2);
 		int offset = Integer.parseUnsignedInt(imm, 2);
-		System.out.println("BGE DEBUG: offset: " + offset);
+		//System.out.println("BGE DEBUG: offset: " + offset);
 
 		// Convert program counter to integer before adding the offset
 		int programCounter = Integer.parseUnsignedInt(registers.getProgramCounter(), 2);
-		System.out.println("BGE DEBUG: programCounter: " + programCounter);
+		//System.out.println("BGE DEBUG: programCounter: " + programCounter);
 		int branchTargetAddress = programCounter + offset;
-		System.out.println("BGE DEBUG: branchTargetAddress: " + branchTargetAddress);
+		//System.out.println("BGE DEBUG: branchTargetAddress: " + branchTargetAddress);
 		// Branch if rs1Value is greater than or equal to rs2Value
 
 		int rs1IntValue = Integer.parseUnsignedInt(rs1Value, 2);
@@ -218,12 +218,12 @@ public class Instructions {
 
 		boolean isGreaterThanOrEqual = rs1IntValue >= rs2IntValue;
 		if (isGreaterThanOrEqual) {
-			System.out.println("BGE DEBUG: rs1Value (" + rs1IntValue + ") is greater than or equal to rs2Value ("
-					+ rs2IntValue + ") branching to " + branchTargetAddress);
+			//System.out.println("BGE DEBUG: rs1Value (" + rs1IntValue + ") is greater than or equal to rs2Value ("
+			//		+ rs2IntValue + ") branching to " + branchTargetAddress);
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
-			System.out.println("BGE DEBUG: rs1Value (" + rs1IntValue + ") is less than rs2Value ("
-					+ rs2IntValue + ") incrementing program counter");
+			//System.out.println("BGE DEBUG: rs1Value (" + rs1IntValue + ") is less than rs2Value ("
+			//		+ rs2IntValue + ") incrementing program counter");
 			registers.incrementProgramCounter();
 		}
 
@@ -248,7 +248,7 @@ public class Instructions {
 		boolean isLessThanUnsigned = Integer.compareUnsigned(Integer.parseUnsignedInt(rs1Value, 2),
 				Integer.parseUnsignedInt(rs2Value, 2)) < 0;
 
-		System.out.println("BLTU DEBUG: Branch if " + rs1 + " less than " + rs2 + " (unsigned) MOVE TO " + offset);
+		//System.out.println("BLTU DEBUG: Branch if " + rs1 + " less than " + rs2 + " (unsigned) MOVE TO " + offset);
 		if (isLessThanUnsigned) {
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
@@ -278,8 +278,8 @@ public class Instructions {
 		boolean isGreaterThanOrEqual = Integer.compareUnsigned(Integer.parseUnsignedInt(rs1Value, 2),
 				Integer.parseUnsignedInt(rs2Value, 2)) >= 0;
 
-		System.out.println(
-				"BGEU DEBUG: Branch if " + rs1 + " greater or equal " + rs2 + " MOVE TO " + branchTargetAddress);
+		//System.out.println(
+		//		"BGEU DEBUG: Branch if " + rs1 + " greater or equal " + rs2 + " MOVE TO " + branchTargetAddress);
 		if (isGreaterThanOrEqual) {
 			registers.setProgramCounter(Integer.toUnsignedString(branchTargetAddress, 2));
 		} else {
@@ -466,18 +466,18 @@ public class Instructions {
 		// Calculate the effective memory address by adding the immediate value to the
 		// base register value
 		int address = (int) Long.parseUnsignedLong(valueRs1, 2) + (int) Long.parseUnsignedLong(imm, 2);
-		System.out.println("LB DEBUG: address: " + address);
+		//System.out.println("LB DEBUG: address: " + address);
 
 		// Load the 8-bit value from memory at the calculated address
 		String result = memory.loadByte(address);
-		System.out.println("LB DEBUG: result: " + result);
+		//System.out.println("LB DEBUG: result: " + result);
 		// System.out.println("Address should be ____: " +
 		// Integer.toBinaryString(address));
 		// System.out.println("Loaded value should be ________: " + result);
 
 		// Sign-extend the 8-bit value to 32 bits
 		String resultBinary = Utility.leftPad(result);
-		System.out.println("LB DEBUG: resultBinary: " + resultBinary);
+		//System.out.println("LB DEBUG: resultBinary: " + resultBinary);
 		// Update rd register value
 		registers.setRegisterValue(rd, resultBinary);
 
@@ -504,15 +504,15 @@ public class Instructions {
 	    
 	    // Calculate the effective memory address by adding the immediate value to the base register value
 	    int address = (int) Long.parseUnsignedLong(valueRs1, 2) + (int) Long.parseUnsignedLong(imm, 2);
-		System.out.println("LH DEBUG: address: " + address);
+		//System.out.println("LH DEBUG: address: " + address);
 	    
 		// Load the 16-bit value from memory at the calculated address
 	    String result = memory.loadHalfword2(address);
-		System.out.println("LH DEBUG: result: " + result);
+		//System.out.println("LH DEBUG: result: " + result);
 	    
 	    // Sign-extend the 16-bit value to 32 bits
 	    String resultBinary = Utility.leftPad(result);
-		System.out.println("LH DEBUG: resultBinary: " + resultBinary);
+		//System.out.println("LH DEBUG: resultBinary: " + resultBinary);
 	    
 		// Update rd register value
 		registers.setRegisterValue(rd, resultBinary);
@@ -541,10 +541,10 @@ public class Instructions {
 
 		// Load the word from memory
 		String loadedWord = memory.loadWord2(memoryAddress);
-		System.out.println("LW DEBUG: loadedWord: " + loadedWord);
+		//System.out.println("LW DEBUG: loadedWord: " + loadedWord);
 		// Update rd register value
 		loadedWord = Utility.leftPad(loadedWord);
-		System.out.println("LW DEBUG: rd: " + rd);
+		//System.out.println("LW DEBUG: rd: " + rd);
 		registers.setRegisterValue(rd, loadedWord);
 		registers.incrementProgramCounter();
 
@@ -564,17 +564,17 @@ public class Instructions {
 
 	    // Calculate the effective memory address by adding the immediate value to the base register value
 	    int address = (int) Long.parseUnsignedLong(valueRs1, 2) + (int) Long.parseUnsignedLong(imm, 2);
-		System.out.println("LBU DEBUG: address: " + address);
-	    
+		//System.out.println("LBU DEBUG: address: " + address);
+
 		// Load the 8-bit value from memory at the calculated address
 	    String result = memory.loadByte(address);
-		System.out.println("LBU DEBUG: result: " + result);
+		//System.out.println("LBU DEBUG: result: " + result);
 	    //System.out.println("Address should be ____: " + Integer.toBinaryString(address));
 	    //System.out.println("Loaded value should be ________: " + result);
 	    
 	    // Sign-extend the 8-bit value to 32 bits
 	    String resultBinary = Utility.leftPad(0 + result);
-		System.out.println("LBU DEBUG: resultBinary: " + resultBinary);
+		//System.out.println("LBU DEBUG: resultBinary: " + resultBinary);
 	    // Update rd register value
 	    registers.setRegisterValue(rd, resultBinary);
 
@@ -596,15 +596,15 @@ public class Instructions {
 	    
 	    // Calculate the effective memory address by adding the immediate value to the base register value
 	    int address = (int) Long.parseUnsignedLong(valueRs1, 2) + (int) Long.parseUnsignedLong(imm, 2);
-		System.out.println("LH DEBUG: address: " + address);
+		//System.out.println("LH DEBUG: address: " + address);
 	    
 		// Load the 16-bit value from memory at the calculated address
 	    String result = memory.loadHalfword2(address);
-		System.out.println("LH DEBUG: result: " + result);
+		//System.out.println("LH DEBUG: result: " + result);
 	    
 	    // Sign-extend the 16-bit value to 32 bits
 	    String resultBinary = Utility.leftPad(0 + result);
-		System.out.println("LH DEBUG: resultBinary: " + resultBinary);
+		//System.out.println("LH DEBUG: resultBinary: " + resultBinary);
 	    
 		// Update rd register value
 	    registers.setRegisterValue(rd, resultBinary);
@@ -705,25 +705,25 @@ public class Instructions {
 		String rs2 = instructionComponents.get("rs2"); // source register 2
 		String imm = instructionComponents.get("imm"); // offset
 
-		System.out.println("SB DEBUG: imm: " + imm);
+		//System.out.println("SB DEBUG: imm: " + imm);
 		// Get values from registers
 		String valueRs1 = registers.getRegisterValue(rs1);
-		System.out.println("SB DEBUG: valueRs1: " + Integer.parseInt(valueRs1, 2));
-		System.out.println("SB DEBUG: rs1: " + rs1);
+		//System.out.println("SB DEBUG: valueRs1: " + Integer.parseInt(valueRs1, 2));
+		//System.out.println("SB DEBUG: rs1: " + rs1);
 		int valueIntRs1 = Integer.parseInt(rs1.substring(1));
-		System.out.println("SB DEBUG: Integer.parseInt(rs1): " + Integer.parseInt(rs1.substring(1)));
+		//System.out.println("SB DEBUG: Integer.parseInt(rs1): " + Integer.parseInt(rs1.substring(1)));
 		String valueRs2 = registers.getRegisterValue(rs2);
 		int valueIntRs2 = Integer.parseUnsignedInt(valueRs2, 2);
 		// Convert immediate value from binary string to integer
 		int offset = Integer.parseInt(imm, 2);
-		System.out.println("SB DEBUG: offset: " + offset);
+		//System.out.println("SB DEBUG: offset: " + offset);
 
 		// Calculate effective address
 		int effectiveAddress = Integer.parseInt(valueRs1, 2) + offset;
-		System.out.println("SB DEBUG: DATA_MEMORY_ADDRESS: " + Integer.parseInt(Utility.DATA_MEMORY_ADDRESS, 2));
-		System.out.println("SB DEBUG: StoreByte " + effectiveAddress + " offset " + offset + " to get " + valueIntRs2);
+		//System.out.println("SB DEBUG: DATA_MEMORY_ADDRESS: " + Integer.parseInt(Utility.DATA_MEMORY_ADDRESS, 2));
+		//System.out.println("SB DEBUG: StoreByte " + effectiveAddress + " offset " + offset + " to get " + valueIntRs2);
 
-		System.out.println("Utility.leftPadSigned(valueIntRs2)" + Utility.leftPadSigned(valueIntRs2));
+		//System.out.println("Utility.leftPadSigned(valueIntRs2)" + Utility.leftPadSigned(valueIntRs2));
 		// Store the byte to memory
 		memory.storeByte(effectiveAddress, Utility.leftPadSigned(valueIntRs2).substring(24));
 		registers.incrementProgramCounter();
@@ -746,8 +746,8 @@ public class Instructions {
 
 		// Calculate effective address
 		int effectiveAddress = Integer.parseInt(Utility.DATA_MEMORY_ADDRESS, 2) + offset;
-		System.out.println("SH DEBUG: StoreHalfword " + effectiveAddress + " offset " + offset + " to get "
-				+ valueRs2.substring(16));
+		//System.out.println("SH DEBUG: StoreHalfword " + effectiveAddress + " offset " + offset + " to get "
+		//		+ valueRs2.substring(16));
 
 		// Store the halfword to memory
 		memory.storeHalfword(effectiveAddress, valueRs2.substring(16));
@@ -771,7 +771,7 @@ public class Instructions {
 
 	    // Calculate effective address
 	    int effectiveAddress = Integer.parseInt(Utility.DATA_MEMORY_ADDRESS, 2) + offset;
-	    System.out.println("SW DEBUG: StoreWord " + valueIntRs2 + " offset " + offset + " to get " + effectiveAddress);
+	    //System.out.println("SW DEBUG: StoreWord " + valueIntRs2 + " offset " + offset + " to get " + effectiveAddress);
 	    
 	    // Store the word to memory
 	    memory.storeWord(effectiveAddress, valueRs2);
@@ -798,7 +798,7 @@ public class Instructions {
 
 		// Perform shift left logical operation
 		int result = valueIntRs1 << valueIntRs2;
-		System.out.println("SLL DEBUG: Shifting " + valueIntRs1 + " left by " + valueIntRs2 + " to get " + result);
+		//System.out.println("SLL DEBUG: Shifting " + valueIntRs1 + " left by " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -827,7 +827,7 @@ public class Instructions {
 
 		// Perform addition operation
 		int result = valueIntRs1 + valueIntRs2;
-		System.out.println("ADD DEBUG: Adding " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
+		//System.out.println("ADD DEBUG: Adding " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -855,7 +855,7 @@ public class Instructions {
 
 		// Perform subtraction operation
 		int result = valueIntRs1 - valueIntRs2;
-		System.out.println("SUB DEBUG: Subtracting " + valueIntRs2 + " from " + valueIntRs1 + " to get " + result);
+		//System.out.println("SUB DEBUG: Subtracting " + valueIntRs2 + " from " + valueIntRs1 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -917,8 +917,8 @@ public class Instructions {
 
 		// Perform the set less than unsigned operation
 		int result = (Long.compareUnsigned(valueUnsignedRs1, valueUnsignedRs2) < 0) ? 1 : 0;
-		System.out
-				.println("SLTU DEBUG: Comparing " + valueUnsignedRs1 + " < " + valueUnsignedRs2 + " to get " + result);
+		//System.out
+		//		.println("SLTU DEBUG: Comparing " + valueUnsignedRs1 + " < " + valueUnsignedRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -946,8 +946,8 @@ public class Instructions {
 
 		// Perform bitwise XOR operation
 		int result = valueIntRs1 ^ valueIntRs2;
-		System.out.println(
-				"XOR DEBUG: Performing bitwise XOR on " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
+		//System.out.println(
+		//		"XOR DEBUG: Performing bitwise XOR on " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -975,7 +975,7 @@ public class Instructions {
 
 		// Perform shift right logical operation
 		int result = valueIntRs1 >>> valueIntRs2;
-		System.out.println("SRL DEBUG: Shifting " + valueIntRs1 + " right by " + valueIntRs2 + " to get " + result);
+		//System.out.println("SRL DEBUG: Shifting " + valueIntRs1 + " right by " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -1004,7 +1004,7 @@ public class Instructions {
 
 		// Perform shift right arithmetic operation
 		int result = valueIntRs1 >> valueIntRs2;
-		System.out.println("SRA DEBUG: Shifting " + valueIntRs1 + " right by " + valueIntRs2 + " to get " + result);
+		//System.out.println("SRA DEBUG: Shifting " + valueIntRs1 + " right by " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -1029,7 +1029,7 @@ public class Instructions {
 
 		// Perform bitwise OR operation
 		int result = (int) Long.parseUnsignedLong(valueRs1, 2) | (int) Long.parseUnsignedLong(valueRs2, 2);
-		System.out.println("OR DEBUG: Performing bitwise OR on " + valueRs1 + " and " + valueRs2 + " to get " + result);
+		//System.out.println("OR DEBUG: Performing bitwise OR on " + valueRs1 + " and " + valueRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
@@ -1057,8 +1057,8 @@ public class Instructions {
 
 		// Perform bitwise AND operation
 		int result = valueIntRs1 & valueIntRs2;
-		System.out.println(
-				"AND DEBUG: Performing bitwise AND on " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
+		//System.out.println(
+		//		"AND DEBUG: Performing bitwise AND on " + valueIntRs1 + " and " + valueIntRs2 + " to get " + result);
 
 		// Convert result to 32-bit binary string
 		String resultBinary = Utility.leftPad("0" + Integer.toBinaryString(result));
