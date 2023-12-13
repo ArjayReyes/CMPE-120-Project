@@ -412,4 +412,123 @@ class InstructionsTest {
         int programCounterValue = Integer.parseInt(testRegisters.getProgramCounter(), 2);
         assertEquals(10, programCounterValue); // Assuming each *successful* test increment is 2
     }
+    
+    @Test
+    void AUIPC() {
+        // Set up initial values
+        testRegisters.setRegisterValue("x1", "00000000000000000000000000001010"); // Example value in x1
+        testRegisters.setProgramCounter("00000000000000000000000000001000"); // Example program counter value
+
+        // Test AUIPC with a positive immediate value
+        HashMap<String, String> instructionMapPos = new HashMap<>();
+        instructionMapPos.put("rd", "x10");
+        instructionMapPos.put("imm", "00000000000000000000000000000101"); // Example immediate value (5 in binary)
+        testInstructions.AUIPC(instructionMapPos);
+
+        String resultPos = testRegisters.getRegisterValue("x10");
+        assertEquals("00000000000000000000001000101000", resultPos); // Expected value in x10
+
+        // Test AUIPC with a larger positive immediate value
+        HashMap<String, String> instructionMapLargePos = new HashMap<>();
+        instructionMapLargePos.put("rd", "x11");
+        instructionMapLargePos.put("imm", "00000000000000000000011011111111"); // Example immediate value (1111 in binary)
+        testInstructions.AUIPC(instructionMapLargePos);
+
+        String resultLargePos = testRegisters.getRegisterValue("x11");
+        assertEquals("00000000000000001101111111101000", resultLargePos); // Expected value in x11
+
+        // Test AUIPC with zero immediate value
+        HashMap<String, String> instructionMapZero = new HashMap<>();
+        instructionMapZero.put("rd", "x12");
+        instructionMapZero.put("imm", "00000000000000000000000000000000"); // Example immediate value (0 in binary)
+        testInstructions.AUIPC(instructionMapZero);
+
+        String resultZero = testRegisters.getRegisterValue("x12");
+        assertEquals("00000000000000000000000000001000", resultZero); // Expected value in x12
+
+        // Verify that the program counter is incremented
+        int programCounterValue = Integer.parseInt(testRegisters.getProgramCounter(), 2);
+        assertEquals(8, programCounterValue); // Assuming each test increment is 4
+    }
+    
+    @Test
+    void JALR() {
+        // Set up initial values
+        testRegisters.setRegisterValue("x1", "00000000000000000000000000001010"); // Example value in x1
+        testRegisters.setProgramCounter("00000000000000000000000000001000"); // Example program counter value
+
+        // Test JALR with a positive immediate value
+        HashMap<String, String> instructionMapPos = new HashMap<>();
+        instructionMapPos.put("rd", "x10");
+        instructionMapPos.put("rs1", "x1");
+        instructionMapPos.put("imm", "00000000000000000000000000000101"); // Example immediate value (5 in binary)
+        testInstructions.JALR(instructionMapPos);
+
+        String resultPos = testRegisters.getRegisterValue("x10");
+        assertEquals("00000000000000000000000000001000", resultPos); // Expected value in x10
+
+        // Test JALR with a larger positive immediate value
+        HashMap<String, String> instructionMapLargePos = new HashMap<>();
+        instructionMapLargePos.put("rd", "x11");
+        instructionMapLargePos.put("rs1", "x1");
+        instructionMapLargePos.put("imm", "00000000000000000000011011111111"); // Example immediate value (1111 in binary)
+        testInstructions.JALR(instructionMapLargePos);
+
+        String resultLargePos = testRegisters.getRegisterValue("x11");
+        assertEquals("00000000000000000000000000111000", resultLargePos); // Expected value in x11
+
+        // Test JALR with a zero immediate value
+        HashMap<String, String> instructionMapZero = new HashMap<>();
+        instructionMapZero.put("rd", "x12");
+        instructionMapZero.put("rs1", "x1");
+        instructionMapZero.put("imm", "00000000000000000000000000000000"); // Example immediate value (0 in binary)
+        testInstructions.JALR(instructionMapZero);
+
+        String resultZero = testRegisters.getRegisterValue("x12");
+        assertEquals("00000000000000000000000000001000", resultZero); // Expected value in x12
+
+        // Verify that the program counter is updated correctly
+        int programCounterValue = Integer.parseInt(testRegisters.getProgramCounter(), 2);
+        assertEquals(24, programCounterValue); // Expected updated program counter value
+    }
+    
+    @Test
+    void SLTIU() {
+        // Test SLTIU with a smaller source register value
+        testRegisters.setRegisterValue("x1", "00000000000000000000000000001000"); // Example value in x1
+        HashMap<String, String> instructionMapSmall = new HashMap<>();
+        instructionMapSmall.put("rd", "x10");
+        instructionMapSmall.put("rs1", "x1");
+        instructionMapSmall.put("imm", "00000000000000000000000000001111"); // Example immediate value (15 in binary)
+        testInstructions.SLTIU(instructionMapSmall);
+
+        String resultSmall = testRegisters.getRegisterValue("x10");
+        assertEquals("00000000000000000000000000000001", resultSmall); // Expected value in x10
+
+        // Test SLTIU with equal source register and immediate values
+        testRegisters.setRegisterValue("x2", "00000000000000000000000000001111"); // Example value in x2
+        HashMap<String, String> instructionMapEqual = new HashMap<>();
+        instructionMapEqual.put("rd", "x11");
+        instructionMapEqual.put("rs1", "x2");
+        instructionMapEqual.put("imm", "00000000000000000000000000001111"); // Example immediate value (15 in binary)
+        testInstructions.SLTIU(instructionMapEqual);
+
+        String resultEqual = testRegisters.getRegisterValue("x11");
+        assertEquals("00000000000000000000000000000000", resultEqual); // Expected value in x11
+
+        // Test SLTIU with a larger source register value
+        testRegisters.setRegisterValue("x3", "00000000000000000000000000010101"); // Example value in x3
+        HashMap<String, String> instructionMapLarge = new HashMap<>();
+        instructionMapLarge.put("rd", "x12");
+        instructionMapLarge.put("rs1", "x3");
+        instructionMapLarge.put("imm", "00000000000000000000000000001111"); // Example immediate value (15 in binary)
+        testInstructions.SLTIU(instructionMapLarge);
+
+        String resultLarge = testRegisters.getRegisterValue("x12");
+        assertEquals("00000000000000000000000000000000", resultLarge); // Expected value in x12
+
+        // Verify that the program counter is incremented
+        int programCounterValue = Integer.parseInt(testRegisters.getProgramCounter(), 2);
+        assertEquals(4, programCounterValue); // Assuming each test increment is 4
+    }
 }
